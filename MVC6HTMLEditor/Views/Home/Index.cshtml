@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null; 
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/jHtmlArea/jHtmlArea.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div style="margin: 2em auto; width: 750px">
+        <h1 style="margin:1em 0em">CRUD Operations with Knockout, ASP.NET Web API</h1>
+        <a type="button" class="linkButton"
+            data-bind="click: addComment">Add Comment</a>
+
+        <div id="conentHolder">
+            <p class="error" data-bind="text: error"></p>
+            <div style="" data-bind="foreach: { data: comments }, visible: comments().length > 0">
+                <div class="content">
+                    <p class="error" data-bind="text: error"></p>
+                    <span class="cname" data-bind="text: Name"></span>- <span class="cemail" data-bind="    text: Email"></span>
+                    <div data-bind="html: HTMLComment"></div>
+                    <a data-bind="click: $root.editComment" href="javascript:void(0)">Edit</a> | 
+                     <a data-bind="click: deleteComment" href="javascript:void(0)">Delete</a>
+                </div>
+            </div>
+            <div id="dialog" title="Comment"
+                data-bind="jqDialog: { 'autoOpen': false, 'resizable': false, 'modal': true, 'width': '50%' }, template: { 'name': 'descTmpl', 'data': selectedComment, if: selectedComment }, openDialog: selectedComment">
+            </div>
+            <script id="descTmpl" type="text/html">
+                <p class="error" data-bind="text: error"></p>
+                <p>
+                    Name: 
+                    <input type="text" data-bind="value: Name" />
+                </p>
+                <p>
+                    Email: 
+                    <input type="text" data-bind="value: Email" />
+                </p>
+                <p>
+                    Comment: 
+                    <textarea id="dialogEditor" rows="10" style="width: 100%" class="htmlEditor" placeholder="Type Note..." data-bind="value: HTMLComment"></textarea>
+                </p>
+                <input type="button" class="linkButton" value="OK" data-bind="click: acceptChanges" />
+                <input type="button" class="linkButton" value="Cancel" data-bind="click: cancelChanges" />
+            </script>
+        </div>
+        Check out <a href="http://techbrij.com">techbrij.com</a> for more details.
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="~/Scripts/knockout-2.2.0.js"></script>
+    <script src="~/Scripts/jHtmlArea-0.7.5.min.js"></script>
+    <script src="~/Scripts/Comment.js"></script>
+
+</body>
+</html>
+
